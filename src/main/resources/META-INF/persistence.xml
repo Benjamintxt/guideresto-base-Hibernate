@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
+             version="2.2">
+
+    <persistence-unit name="GuideRestoPersistenceUnit">
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.driver.OracleDriver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@db.ig.he-arc.ch:1521:ens"/>
+            <property name="javax.persistence.jdbc.user" value="benjamin_casey"/>
+            <property name="javax.persistence.jdbc.password" value="benjamin_casey"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle12cDialect"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.generate_statistics" value="true"/>
+        </properties>
+
+    </persistence-unit>
+</persistence>

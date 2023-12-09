@@ -8,7 +8,6 @@ import java.util.Set;
 public class City {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "your_sequence_generator")
-    @SequenceGenerator(name = "your_sequence_generator", sequenceName = "your_sequence_name", allocationSize = 1)
     @Column(name = "numero")
     private Integer id;
     @Column(name = "code_postal", nullable = false)
@@ -37,5 +36,9 @@ public class City {
 
     public Set<Restaurant> getRestaurants() {
         return restaurants;
+    }
+
+    public Integer getId() {
+        return id;
     }
 }

@@ -126,7 +126,7 @@ public class CLI {
   /**
    * Affiche une liste de restaurants dont le nom de la ville contient une chaîne de caractères
    * saisie par l'utilisateur
-   */
+    */
   private void searchRestaurantByCity() {
     println("Veuillez entrer une partie du nom de la ville désirée : ");
     String research = readString();
