@@ -7,14 +7,15 @@ import java.util.Set;
 @Table(name = "VILLES")
 public class City {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "your_sequence_generator")
     @Column(name = "numero")
+    @GeneratedValue (strategy = GenerationType.SEQUENCE, generator = "SEQ_VILLES")
+    @SequenceGenerator(name = "SEQ_VILLES", sequenceName = "SEQ_VILLES", initialValue = 1, allocationSize = 1)
     private Integer id;
     @Column(name = "code_postal", nullable = false)
     private String zipCode;
     @Column(name = "nom_ville", nullable = false)
     private String cityName;
-    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "address.city", fetch = FetchType.LAZY)
     private Set<Restaurant> restaurants;
 
     public City() {
@@ -25,20 +26,24 @@ public class City {
         this.cityName = cityName;
         this.restaurants = new HashSet<>();
     }
-    
+
     public String getZipCode() {
         return zipCode;
     }
+    public void setZipCode(String zipCode) {this.zipCode = zipCode;}
 
     public String getCityName() {
         return cityName;
     }
+    public void setCityName(String cityName) {this.cityName = cityName;}
 
     public Set<Restaurant> getRestaurants() {
         return restaurants;
     }
+    public void setRestaurants(Set<Restaurant> restaurants) {this.restaurants = restaurants;}
 
     public Integer getId() {
         return id;
     }
+    public void setId(Integer id) {this.id = id;}
 }

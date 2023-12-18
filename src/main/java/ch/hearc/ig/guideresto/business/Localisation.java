@@ -1,10 +1,16 @@
 package ch.hearc.ig.guideresto.business;
 
-public class Localisation {
+import javax.persistence.*;
 
+@Embeddable
+public class Localisation {
+    @Column(name = "ADRESSE", nullable = false)
     private String street;
+    @ManyToOne
+    @JoinColumn(name = "FK_VILL", nullable = false)
     private City city;
 
+    public Localisation() {}
     public Localisation(String street, City city) {
         this.street = street;
         this.city = city;

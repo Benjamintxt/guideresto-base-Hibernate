@@ -1,25 +1,40 @@
 package ch.hearc.ig.guideresto.business;
 
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-
+@Entity
+@Table(name = "RESTAURANTS")
 public class Restaurant {
-
+    @Id
+    @GeneratedValue (strategy = GenerationType.SEQUENCE, generator = "SEQ_RESTAURANTS")
+    @SequenceGenerator(name = "SEQ_RESTAURANTS", sequenceName = "SEQ_RESTAURANTS", initialValue = 1, allocationSize = 1)
+    @Column(name = "NUMERO")
     private Integer id;
+    @Column(name = "NOM")
     private String name;
+    @Lob
+    @Column(name = "DESCRIPTION")
     private String description;
+    @Column(name = "SITE_WEB")
     private String website;
-    private Set<Evaluation> evaluations;
-    private Localisation address;
-    private RestaurantType type;
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private Set<BasicEvaluation> basicEvaluations = new HashSet<>();
 
-    public Restaurant(Integer id, String name, String description, String website, String street, City city, RestaurantType type) {
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private Set<CompleteEvaluation> completeEvaluations = new HashSet<>();
+    @Embedded
+    private Localisation address;
+    @ManyToOne
+    @JoinColumn(name = "fk_type")
+    private RestaurantType type;
+    public Restaurant() {}
+    public Restaurant(Integer id, String name, String description, String website, Localisation address, RestaurantType type) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.website = website;
-        this.evaluations = new HashSet<>();
-        this.address = new Localisation(street, city);
+        this.address = address;
         this.type = type;
     }
 
@@ -60,6 +75,9 @@ public class Restaurant {
     }
 
     public Set<Evaluation> getEvaluations() {
+        Set<Evaluation> evaluations = new HashSet<>();
+        evaluations.addAll(basicEvaluations);
+        evaluations.addAll(completeEvaluations);
         return evaluations;
     }
 
