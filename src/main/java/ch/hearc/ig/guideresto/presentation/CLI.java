@@ -331,8 +331,13 @@ public class CLI {
   }
   //Pas modifié encore
   private void addBasicEvaluation(Restaurant restaurant, Boolean like) {
-    BasicEvaluation eval = new BasicEvaluation(null, LocalDate.now(), restaurant, like, getIpAddress());
+    println("Aimez-vous ce restaurant ? (oui/non)");
+    String likeInput = readString();
+    boolean likeRestaurant = likeInput.trim().equalsIgnoreCase("oui");
+
+    BasicEvaluation eval = new BasicEvaluation(null, LocalDate.now(), restaurant, likeRestaurant, getIpAddress());
     restaurant.getEvaluations().add(eval);
+    basicEvaluationService.saveOrUpdate(eval);
     println("Votre vote a été pris en compte !");
   }
 
